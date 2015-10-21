@@ -14,11 +14,11 @@ To use this script:
 python subject-extractor.py <name-for-this-set> <limit|0> <season-numbers-without-spaces> <download|csv|both> <all|blank|multi|zebra|lionmale|...>
 ```
 
-`<name-for-this-set>` is simply a name for this set you are generating. It will also serve as a subdirectory name under the current directory, where your CSVs and images will be saved.
-`<limit|0>` is the number of *subjects* you want to import all images for. Use `0` if you want to retrieve all available images.
-`<season-numbers-without-spaces>` is a mashed-together list of all the seasons you want to install. For example `12345678` or just `8`.
-`<download|csv|both>` - use `download` to get the actual images. use `csv` to generate a CSV with URLs only. Use `both` to do both.
-`<all|blank|multi|zebra|lionmale|...>` lets you specify what type of subject you want (according to consensus). This can be a specific species, or `multi` for random multi-species subjects, or `blank` for blank subjects. Use `all` to get all available images.
+ - `<name-for-this-set>` is simply a name for this set you are generating. It will also serve as a subdirectory name under the current directory, where your CSVs and images will be saved.
+ - `<limit|0>` is the number of *subjects* you want to import all images for. Use `0` if you want to retrieve all available images.
+ - `<season-numbers-without-spaces>` is a mashed-together list of all the seasons you want to install. For example `12345678` or just `8`.
+ - `<download|csv|both>` - use `download` to get the actual images. use `csv` to generate a CSV with URLs only. Use `both` to do both.
+ - `<all|blank|multi|zebra|lionmale|...>` lets you specify what type of subject you want (according to consensus). This can be a specific species, or `multi` for random multi-species subjects, or `blank` for blank subjects. Use `all` to get all available images.
 
 ## Example usages
 
