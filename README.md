@@ -31,15 +31,15 @@ The initial implementation is Snapshot Serengeti-specific, but it is my intent t
    ```
 6. Generate the subject metadata CSV file. You don't need to do this if you already have `consensus-detailed.csv` and it's up-to-date.
 
-This creates a CSV summarising the contents of each subject, based on aggregate user classifications, into three types: 
-  - `blank` for blank images
-  - `multi` for images containing more than one distinct species (only 6% of non-blank subjects have more than one species)
-  - `<species-name>` where a distinct species is present. (e.g. `zebra`, `gazellegrants`, `lionmale` etc.)
-
-This is done as follows:
-  1. Install and build the Ouroboros project (which includes installing Ruby) per the instructions at [https://github.com/zooniverse/Ouroboros](https://github.com/zooniverse/Ouroboros)
-  2. Run the rails console in that directory by typing `rails c`
-  3. From the rails console, load the script `load /code/mongo-subject-extractor/generate_detailed_consensus.rb`
-  4. Copy the generated CSV file from the Ouroboros directory into /code/mongo-subject-extractor
-
+   This creates a CSV summarising the contents of each subject, based on aggregate user classifications, into three types: 
+     - `blank` for blank images
+     - `multi` for images containing more than one distinct species (only 6% of non-blank subjects have more than one species)
+     - `<species-name>` where a distinct species is present. (e.g. `zebra`, `gazellegrants`, `lionmale` etc.)
+   
+   This is done as follows:
+     1. Install and build the Ouroboros project (which includes installing Ruby) per the instructions at [https://github.com/zooniverse/Ouroboros](https://github.com/zooniverse/Ouroboros)
+     2. Run the rails console in that directory by typing `rails c`
+     3. From the rails console, load the script `load /code/mongo-subject-extractor/generate_detailed_consensus.rb`
+     4. Copy the generated CSV file from the Ouroboros directory into /code/mongo-subject-extractor
+   
 7. You are now ready to run the `subject-extractor.py` script using the instructions above.
