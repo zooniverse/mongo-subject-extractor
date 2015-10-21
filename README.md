@@ -11,24 +11,24 @@ The initial implementation is Snapshot Serengeti-specific, but it is my intent t
 
 1. Install [python](https://www.python.org/downloads/)
 2. Ensure that the python modules `pymongo`, `csv`, `urllib` and `bson` are installed:
-```
-pip install pymongo
-pip install urllib
-pip install csv
-pip install bson
-```
+   ```
+   pip install pymongo
+   pip install urllib
+   pip install csv
+   pip install bson
+   ```
 3. Install [mongodb](https://docs.mongodb.org/manual/installation/)
 4. Download a MongoDB dump from S3 or elsewhere, unzip it, and use mongorestore to copy it into your local Mongo database server:
-```
-cd /downloads
-mongorestore --db serengeti --drop serengeti_2015-10-21
-```
+   ```
+   cd /downloads
+   mongorestore --db serengeti --drop serengeti_2015-10-21
+   ```
 5. Clone this repository and `cd` into it:
-```
-cd /code
-git clone https://github.com/zooniverse/mongo-subject-extractor.git
-cd mongo-subject-extractor
-```
+   ```
+   cd /code
+   git clone https://github.com/zooniverse/mongo-subject-extractor.git
+   cd mongo-subject-extractor
+   ```
 6. Generate the subject metadata CSV file. You don't need to do this if you already have `consensus-detailed.csv` and it's up-to-date.
 
 This creates a CSV summarising the contents of each subject, based on aggregate user classifications, into three types: 
