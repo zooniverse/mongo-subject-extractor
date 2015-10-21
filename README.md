@@ -7,17 +7,48 @@ This script will let you specify certain parameters and find matching subjects, 
 
 The initial implementation is Snapshot Serengeti-specific, but it is my intent that this tool can be extended to support other Ouroboros/MongoDB Zooniverse projects in future.
 
-# Installation instructions
+## How to use
+
+To use this script:
+```
+python subject-extractor.py <name-for-this-set> <limit|0> <season-numbers-without-spaces> <download|csv|both> <all|blank|multi|zebra|lionmale|...>
+```
+
+`<name-for-this-set>` is simply a name for this set you are generating. It will also serve as a subdirectory name under the current directory, where your CSVs and images will be saved.
+`<limit|0>` is the number of *subjects* you want to import all images for. Use `0` if you want to retrieve all available images.
+`<season-numbers-without-spaces>` is a mashed-together list of all the seasons you want to install. For example `12345678` or just `8`.
+`<download|csv|both>` - use `download` to get the actual images. use `csv` to generate a CSV with URLs only. Use `both` to do both.
+`<all|blank|multi|zebra|lionmale|...>` lets you specify what type of subject you want (according to consensus). This can be a specific species, or `multi` for random multi-species subjects, or `blank` for blank subjects. Use `all` to get all available images.
+
+## Example usages
+
+```
+python subject-extractor.py my-zebras 5000 678 both zebra
+```
+This would download 5000 subjects worth of images containing only zebras from seasons 6, 7 and 8, as both images and a CSV manifest file into a subdirectory called `my-zebras`.
+
+```
+python subject-extractor.py 200-blanks 200 12345678 download blank
+```
+This would download 5000 subjects worth of blank images from all 8 seasons, just the images,  into a subdirectory called `500-blanks`.
+
+
+```
+python subject-extractor.py multiset 5 123 download multi
+```
+This would select 5 subjects worth of images that contain more than one species, from seasons 2, 4, and 5, and generate a CSV of URLs only,  into a subdirectory called `multiset`.
+
+
+## Installation instructions
 
 1. Install [python](https://www.python.org/downloads/)
-2. Ensure that the python modules `pymongo`, `csv`, `urllib` and `bson` are installed:
+2. Ensure that the python modules `pymongo`, `csv` and `urllib` are installed:
    ```
    pip install pymongo
    pip install urllib
    pip install csv
-   pip install bson
    ```
-3. Install [mongodb](https://docs.mongodb.org/manual/installation/)
+3. Install [mongodb](https://docs.monfgodb.org/manual/installation/)
 4. Download a MongoDB dump from S3 or elsewhere, unzip it, and use mongorestore to copy it into your local Mongo database server:
    ```
    cd /downloads
