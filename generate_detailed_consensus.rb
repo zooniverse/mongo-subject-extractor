@@ -6,7 +6,7 @@ def string_compress_behavior_counters_values(behavior_counters_data)
     subvals = ""
     behaviors_for_this_species.each do |k,v|
       if subvals != ""
-        subvals += ","
+        subvals += "!"
       end
       subvals += "#{k}:#{v}"
     end
