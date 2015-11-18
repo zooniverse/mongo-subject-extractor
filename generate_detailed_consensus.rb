@@ -74,10 +74,14 @@ File.open('consensus-detailed.csv', 'w') do |out|
       end
       zooniverse_id = subject.zooniverse_id
       season = seasons.invert[subject.attributes['group_id']]
-      site_id = subject.metadata['site_roll_code'].split('_',2).last().split('_').first()
+
+      site_and_roll = subject.metadata['site_roll_code'].split('_',2).last().split('_')
+      site_id = site_and_roll.first()
+      roll_id = site_and_roll.last()
+
       if subject.metadata.has_key?("old_timestamps")
         no_of_frames = subject.metadata["old_timestamps"].length
-        time_of_day = get_average_timestamp(subject.metadata['old_timestamps'])
+        time_of_day = get_average_time_of_day(subject.metadata['old_timestamps'])
       else
         no_of_frames = 1
         time_of_day = nil
@@ -138,12 +142,12 @@ File.open('consensus-detailed.csv', 'w') do |out|
       # write to CSV
 
       # This will make the line look like
-      # <zoo ID>, <season>, <site ID>, <number of frames>, <time of day>, <number of classifications>,
+      # <zoo ID>, <season>, <site ID>, <roll ID>, <number of frames>, <time of day>, <number of classifications>,
       #    <determination: blank|multi|zebra|lionmale|etc..>, <total species>, <total animals>, <species list if multi>,
       #    <retire reason|N/A>, <counters keys>, <counters values>, <species counts keys>, <species counts values>,
       #    <behavior counters keys>, <behaviour counters values>, <list of which species present>, <counts per species>
 
-      out.puts "#{zooniverse_id},#{season},#{site_id},#{no_of_frames},#{time_of_day},#{classification_count},#{determination},#{total_species_present},#{total_animals_present},#{determination_list_if_multi},#{retire_reason},#{counters_keys},#{counters_values},#{species_counts_keys},#{species_counts_values},#{behavior_counters_keys},#{behavior_counters_values},#{aggregate_species_names},#{aggregate_species_counts}"
+      out.puts "#{zooniverse_id},#{season},#{site_id},#{roll_id},#{no_of_frames},#{time_of_day},#{classification_count},#{determination},#{total_species_present},#{total_animals_present},#{determination_list_if_multi},#{retire_reason},#{counters_keys},#{counters_values},#{species_counts_keys},#{species_counts_values},#{behavior_counters_keys},#{behavior_counters_values},#{aggregate_species_names},#{aggregate_species_counts}"
 
     end
   end
