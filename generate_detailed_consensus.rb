@@ -50,11 +50,13 @@ File.open('consensus-detailed.csv', 'w') do |out|
   5 => BSON::ObjectId("51ad041f3ae7401ecc000001"),
   6 => BSON::ObjectId("51f158983ae74082bb000001"),
   7 => BSON::ObjectId("5331cce91bccd304b6000001"),
-  8 => BSON::ObjectId("54cfc76387ee0404d5000001")
+  8 => BSON::ObjectId("54cfc76387ee0404d5000001"),
+  0 => BSON::ObjectId("55a3d6cf3ae74036bc000001"), # actually Lost Season
+  9 => BSON::ObjectId("56a63b3b41479b0042000001")
   }
 
   # write titles
-  out.puts "zooniverse_id,season,site_id,roll_id,frames,time_of_day,classifications,crowd_says,total_species,total_animals,crowd_says_if_multi,retire_reason,counters_keys,counters_values,species_counts_keys,species_counts_values,behavior_counters_keys,behavior_counters_values,aggregate_species_names,aggregate_species_counts"
+  out.puts "zooniverse_id,season,site_id,roll_id,number_of_frames,frame1_url,frame2_url,frame3_url,time_of_day,classifications,crowd_says,total_species,total_animals,crowd_says_if_multi,retire_reason,counters_keys,counters_values,species_counts_keys,species_counts_values,behavior_counters_keys,behavior_counters_values,aggregate_species_names,aggregate_species_counts"
 
   SerengetiSubject.collection.find({}, { timeout: false }) do |cursor|
     while cursor.has_next?
@@ -86,6 +88,14 @@ File.open('consensus-detailed.csv', 'w') do |out|
         no_of_frames = 1
         time_of_day = nil
       end
+      frame1_url = frame2_url = frame3_url = nil
+      if no_of_frames>2
+        frame3_url = subject.location['standard'][2]
+      end
+      if no_of_frames>1
+        frame2_url = subject.location['standard'][1]
+      end
+      frame1_url = subject.location['standard'][0]
       classification_count = subject.classification_count
       if multi
         determination = "multi"
@@ -142,12 +152,12 @@ File.open('consensus-detailed.csv', 'w') do |out|
       # write to CSV
 
       # This will make the line look like
-      # <zoo ID>, <season>, <site ID>, <roll ID>, <number of frames>, <time of day>, <number of classifications>,
+      # <zoo ID>, <season>, <site ID>, <roll ID>, <number of frames>, <frame 1 URL>, <frame 2 URL>, <frame 3 URL>, <time of day>, <number of classifications>,
       #    <determination: blank|multi|zebra|lionmale|etc..>, <total species>, <total animals>, <species list if multi>,
       #    <retire reason|N/A>, <counters keys>, <counters values>, <species counts keys>, <species counts values>,
       #    <behavior counters keys>, <behaviour counters values>, <list of which species present>, <counts per species>
 
-      out.puts "#{zooniverse_id},#{season},#{site_id},#{roll_id},#{no_of_frames},#{time_of_day},#{classification_count},#{determination},#{total_species_present},#{total_animals_present},#{determination_list_if_multi},#{retire_reason},#{counters_keys},#{counters_values},#{species_counts_keys},#{species_counts_values},#{behavior_counters_keys},#{behavior_counters_values},#{aggregate_species_names},#{aggregate_species_counts}"
+      out.puts "#{zooniverse_id},#{season},#{site_id},#{roll_id},#{no_of_frames},#{frame1_url},#{frame2_url},#{frame3_url},#{time_of_day},#{classification_count},#{determination},#{total_species_present},#{total_animals_present},#{determination_list_if_multi},#{retire_reason},#{counters_keys},#{counters_values},#{species_counts_keys},#{species_counts_values},#{behavior_counters_keys},#{behavior_counters_values},#{aggregate_species_names},#{aggregate_species_counts}"
 
     end
   end
